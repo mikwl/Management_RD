@@ -1,7 +1,7 @@
 from django.urls import path
+from .views import *
 
-from .views import EmployeeListCreateView
-urlpatterns = [
+app_name = 'employees'
 
-    path("employee/", EmployeeListCreateView.as_view()),
+urlpatterns = [path('user/', EmployeeListView.as_view()),
 ]

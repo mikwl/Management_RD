@@ -1,8 +1,8 @@
+from rest_framework.generics import ListAPIView
+from .serializers import *
 from .models import Employee
-from .serializers import EmployeeSerializer
-from rest_framework.generics import ListCreateAPIView
 
 
-class EmployeeListCreateView(ListCreateAPIView):
+class EmployeeListView(ListAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
