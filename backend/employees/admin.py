@@ -33,7 +33,6 @@ class EmployeeDraggableAdmin(DraggableMPTTAdmin, UserAdmin):
                     )
     list_display_links = ["get_full_name", "link_to_head"]
     list_filter = ("position", "level")
-    actions = ["delete_payment_info"]
 
     def link_to_head(self, obj):
         link = reverse("admin:employees_employee_change", args=[obj.head_id])
