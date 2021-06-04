@@ -12,7 +12,7 @@ class UserManager(BaseUserManager, TreeManager):
 
     def create_user(self, email, first_name, last_name, patronymic, position, salary, password):
         if not email:
-            raise ValueError('Email is required!')
+            raise ValueError("Email is required!")
         user = self.model(email=self.normalize_email(email), first_name=first_name, last_name=last_name,
                           patronymic=patronymic, position=position, salary=salary)
         user.is_staff = True
@@ -52,28 +52,28 @@ class Employee(MPTTModel, AbstractBaseUser, PermissionsMixin):
     salary = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     total_paid = models.DecimalField(max_digits=16, decimal_places=2, default=0)
     head = TreeForeignKey(
-        'self',
+        "self",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        related_name='children',
-        verbose_name='Head'
+        related_name="children",
+        verbose_name="Head"
     )
-    email = models.EmailField('Email', max_length=200, unique=True)
-    is_superuser = models.BooleanField('Superuser', default=False)
-    is_staff = models.BooleanField('Staff', default=False)
+    email = models.EmailField("Email", max_length=200, unique=True)
+    is_superuser = models.BooleanField("Superuser", default=False)
+    is_staff = models.BooleanField("Staff", default=False)
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ('first_name', 'last_name', 'patronymic', 'position', 'salary')
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ("first_name", "last_name", "patronymic", "position", "salary")
 
-    @admin.display(description='Name')
+    @admin.display(description="Name")
     def get_full_name(self):
-        return f'{self.first_name} {self.last_name} {self.patronymic}'
+        return f"{self.first_name} {self.last_name} {self.patronymic}"
 
     def __str__(self):
         return self.get_full_name()
 
     class MPTTMeta:
-        order_insertion_by = ['last_name']
-        parent_attr = 'head'
+        order_insertion_by = ["last_name"]
+        parent_attr = "head"
